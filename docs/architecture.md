@@ -55,7 +55,7 @@ We'll explain these phases one by one.
 
 ### Generating EL and CL client data
 
-All EL clients require both a genesis file and a JWT secret. The exact format of the genesis file differs per client, so we first leverage [a Docker image containing tools for generating this genesis data][ethereum-genesis-generator] to create the actual files that the EL clients-to-be will need. This is accomplished by filling in a single genesis generation environment config files found in [`static_files`](../static_files/genesis-generation-config/el-cl/values.env.tmpl).
+All EL clients require both a genesis file and a JWT secret. The exact format of the genesis file differs per client, so we first leverage [a Docker image containing tools for generating this genesis data][ethereum-genesis-generator] to create the actual files that the EL clients-to-be will need. This is accomplished by filling in a single genesis generation environment config file found in [`static_files`](../static_files/genesis-generation-config/el-cl/values.env.tmpl).
 
 CL clients, like EL clients also have a genesis and config files that they need. This is created at the same time as the EL genesis files.
 
@@ -73,7 +73,7 @@ Once CL genesis data and keys have been created, the CL client nodes are started
 - One CL client launcher exists per client type (e.g. [Nimbus](https://github.com/ethpandaops/ethereum-package/tree/main/src/participant_network/cl/nimbus), [Lighthouse](https://github.com/ethpandaops/ethereum-package/tree/main/src/participant_network/cl/lighthouse))
 - Launched CL node information is tracked in [a `cl_context` struct](https://github.com/ethpandaops/ethereum-package/blob/main/src/participant_network/cl/cl_context.star)
 
-There are only two major difference between CL client and EL client launchers. First, the `cl_client_launcher.launch` method also consumes an `el_context`, because each CL client is connected in a 1:1 relationship with an EL client. Second, because CL clients have keys, the keystore files are passed in to the `launch` function as well.
+There are only two major differences between CL client and EL client launchers. First, the `cl_client_launcher.launch` method also consumes an `el_context`, because each CL client is connected in a 1:1 relationship with an EL client. Second, because CL clients have keys, the keystore files are passed in to the `launch` function as well.
 
 ## Auxiliary Services
 
